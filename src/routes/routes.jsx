@@ -11,6 +11,7 @@ import AddProduct from "../pages/dashboard/AddProduct";
 import UpdateProduct from "../pages/dashboard/UpdateProduct";
 import ManageAllProducts from "../pages/dashboard/ManageAllProducts";
 import PrivateRoute from "./PrivateRoute";
+import EditProfile from "../pages/dashboard/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,12 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <DashboardHome />,
+      },
+      {
+        path: "edit-profile/:id",
+        element: <EditProfile />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/user/get/${params.id}`),
       },
       {
         path: "add-product",

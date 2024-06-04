@@ -1,7 +1,36 @@
+import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import { Link } from "react-router-dom";
+
 const DashboardHome = () => {
+  const { user } = useAuth();
+  console.log(user.email);
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserInfo(data);
+      });
+  }, [user]);
+
+  console.log(userInfo);
   return (
     <div>
-      <h2>This is dashboard home</h2>
+      <div className="flex justify-between mb-7">
+        <h1 className="text-3xl ">Profile Information</h1>
+        <Link
+          to={`/dashboard/edit-profile/${userInfo?._id}`}
+          className="btn btn-neutral btn-md"
+        >
+          Edit Profile
+        </Link>
+      </div>
+      <div>
+        <h1>{userInfo?.name}</h1>
+        <h1>{userInfo?.email}</h1>
+      </div>
     </div>
   );
 };

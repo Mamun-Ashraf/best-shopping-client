@@ -1,7 +1,11 @@
+import Accordian from "../components/home/Accordian";
+import Banner from "../components/home/Banner";
+
 const Home = () => {
   return (
     <div>
-      <h2>This is home</h2>
+      <Banner />
+      <Accordian />
     </div>
   );
 };
