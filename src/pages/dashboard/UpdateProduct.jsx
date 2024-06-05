@@ -41,14 +41,14 @@ const UpdateProducts = () => {
       >
         <div>
           <input
-            {...register("title", { required: true })}
+            {...register("name", { required: true })}
             className="bg-gray-100 p-2 border border-black rounded-lg w-full"
             type="text"
-            placeholder="Title"
-            defaultValue={product.title}
+            placeholder="Name"
+            defaultValue={product.name}
           />
-          {errors.title && (
-            <span className="text-red-400">Title is required</span>
+          {errors.name && (
+            <span className="text-red-400">Name is required</span>
           )}
         </div>
         <div>
@@ -61,6 +61,18 @@ const UpdateProducts = () => {
           />
           {errors.brand && (
             <span className="text-red-400">Brand is required</span>
+          )}
+        </div>
+        <div>
+          <input
+            {...register("category", { required: true })}
+            className="bg-gray-100 p-2 border border-black rounded-lg w-full"
+            type="text"
+            placeholder="Category"
+            defaultValue={product.category}
+          />
+          {errors.category && (
+            <span className="text-red-400">Category is required</span>
           )}
         </div>
         <div>

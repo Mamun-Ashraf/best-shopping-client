@@ -1,7 +1,7 @@
 const Accordian = () => {
   return (
     <div className="my-20 px-8 w-3/4 mx-auto">
-      <h1 className="my-16 text-center font-bold text-3xl">
+      <h1 className="my-16 text-center font-bold text-2xl text-primary">
         Frequently Asked Questions!
       </h1>
       <div className="collapse collapse-arrow bg-base-200 mb-4">

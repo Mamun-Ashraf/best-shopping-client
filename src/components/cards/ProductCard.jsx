@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 
 const ProductCard = ({ product, onDelete }) => {
   // const token = localStorage.getItem("token");
-  const { _id, title, brand, price, image } = product;
+  const { _id, name, brand, price, image } = product;
 
   const handleDelete = async () => {
     await fetch(`http://localhost:5000/product/${_id}`, {
@@ -26,7 +26,7 @@ const ProductCard = ({ product, onDelete }) => {
         <img src={image} alt="" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">{title}</h2>
+        <h2 className="card-title">{name}</h2>
         <h3>
           <span className="text-lg font-semibold">Brand:</span> {brand}
         </h3>
