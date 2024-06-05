@@ -13,13 +13,13 @@ const UpdateProducts = () => {
   const product = useLoaderData();
 
   const handleUpdateProduct = async (data) => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     await fetch(`http://localhost:5000/product/${product._id}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

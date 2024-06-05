@@ -2,7 +2,7 @@ import { useLoaderData } from "react-router-dom";
 import Accordian from "../components/home/Accordian";
 import Banner from "../components/home/Banner";
 import ProductCategories from "../components/home/ProductCategories";
-import ProductCard from "../components/cards/ProductCard";
+import SingleProduct from "../components/home/SingleProduct";
 
 const Home = () => {
   const products = useLoaderData();
@@ -20,7 +20,7 @@ const Home = () => {
             ?.reverse()
             ?.slice(0, 4)
             ?.map((product) => (
-              <ProductCard key={product?._id} product={product} />
+              <SingleProduct key={product?._id} product={product} />
             ))}
         </div>
       </div>

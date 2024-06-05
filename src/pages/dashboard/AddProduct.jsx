@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 const AddProducts = () => {
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const {
     register,
     handleSubmit,
@@ -14,7 +14,7 @@ const AddProducts = () => {
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

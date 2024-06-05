@@ -13,13 +13,13 @@ const EditProfile = () => {
   } = useForm();
 
   const handleUpdateProfile = async (data) => {
-    // const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     await fetch(`http://localhost:5000/user/${userInfo?.email}`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
-        // authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     })

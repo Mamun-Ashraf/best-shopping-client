@@ -2,16 +2,15 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ProductCard = ({ product, onDelete }) => {
-  // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
   const { _id, name, brand, price, image } = product;
 
   const handleDelete = async () => {
     await fetch(`http://localhost:5000/product/${_id}`, {
       method: "DELETE",
-      // headers: {
-      //   "Content-type": "application/json",
-      //   authorization: `Bearer ${token}`,
-      // },
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then(() => {
