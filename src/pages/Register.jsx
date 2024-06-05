@@ -29,7 +29,7 @@ const Register = () => {
             email: result?.user?.email,
             name: data?.name,
           };
-          fetch("https://best-shopping-server.vercel.app/user", {
+          fetch("https://best-shopping-server-z5ra.vercel.app/user", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

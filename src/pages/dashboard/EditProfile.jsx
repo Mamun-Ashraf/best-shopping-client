@@ -16,7 +16,7 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     await fetch(
-      `https://best-shopping-server.vercel.app/user/${userInfo?.email}`,
+      `https://best-shopping-server-z5ra.vercel.app/user/${userInfo?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -49,7 +49,7 @@ const EditProfile = () => {
   //     email: data?.email,
   //   };
 
-  //   fetch(`https://best-shopping-server.vercel.app/user/${userInfo?.email}`, {
+  //   fetch(`https://best-shopping-server-z5ra.vercel.app/user/${userInfo?.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       "Content-Type": "application/json",

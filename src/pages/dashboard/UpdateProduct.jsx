@@ -16,7 +16,7 @@ const UpdateProducts = () => {
     const token = localStorage.getItem("token");
 
     await fetch(
-      `https://best-shopping-server.vercel.app/product/${product._id}`,
+      `https://best-shopping-server-z5ra.vercel.app/product/${product._id}`,
       {
         method: "PATCH",
         headers: {
