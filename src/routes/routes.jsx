@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
         index: true,
         element: <Home />,
         loader: () =>
-          fetch("https://best-shopping-server-z5ra.vercel.app/products"),
+          fetch("https://best-shopping-server.onrender.com/products"),
       },
       {
         path: "about",
@@ -55,7 +55,7 @@ export const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://best-shopping-server-z5ra.vercel.app/user/get/${params.id}`
+            `https://best-shopping-server.onrender.com/user/get/${params.id}`
           ),
       },
     ],
@@ -82,7 +82,7 @@ export const router = createBrowserRouter([
         element: <UpdateProduct />,
         loader: ({ params }) =>
           fetch(
-            `https://best-shopping-server-z5ra.vercel.app/product/${params.id}`
+            `https://best-shopping-server.onrender.com/product/${params.id}`
           ),
       },
       {

@@ -17,7 +17,7 @@ const GoogleLogin = () => {
           email: data?.user?.email,
           name: data?.user?.displayName,
         };
-        fetch("https://best-shopping-server-z5ra.vercel.app/user", {
+        fetch("https://best-shopping-server.onrender.com/user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

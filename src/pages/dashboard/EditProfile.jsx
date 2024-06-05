@@ -16,7 +16,7 @@ const EditProfile = () => {
     const token = localStorage.getItem("token");
 
     await fetch(
-      `https://best-shopping-server-z5ra.vercel.app/user/${userInfo?.email}`,
+      `https://best-shopping-server.onrender.com/user/${userInfo?.email}`,
       {
         method: "PATCH",
         headers: {
@@ -32,34 +32,6 @@ const EditProfile = () => {
         reset();
       });
   };
-
-  // const handleSubmit = (e) => {
-  //   const token = localStorage.getItem("token");
-  //   e.preventDefault();
-
-  //   const form = e.target;
-  //   const name = form.name.value;
-  //   const age = form.age.value;
-  //   const mobileNumber = form.mobileNumber.value;
-
-  //   const userData = {
-  //     name,
-  //     age,
-  //     mobileNumber,
-  //     email: data?.email,
-  //   };
-
-  //   fetch(`https://best-shopping-server-z5ra.vercel.app/user/${userInfo?.email}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify(userData),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-  // };
   return (
     <div>
       <h1 className="text-2xl font-semibold text-center text-success mt-5 mb-8 underline">
