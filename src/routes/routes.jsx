@@ -9,7 +9,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import AddProduct from "../pages/dashboard/AddProduct";
 import UpdateProduct from "../pages/dashboard/UpdateProduct";
-import ManageAllProducts from "../pages/dashboard/ManageAllProducts";
+import AllProducts from "../pages/dashboard/AllProducts";
 import PrivateRoute from "./PrivateRoute";
 import EditProfile from "../pages/dashboard/EditProfile";
 
@@ -61,12 +61,14 @@ export const router = createBrowserRouter([
         element: <AddProduct />,
       },
       {
-        path: "update-product",
+        path: "update-product/:id",
         element: <UpdateProduct />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/product/${params.id}`),
       },
       {
-        path: "manage-products",
-        element: <ManageAllProducts />,
+        path: "all-products",
+        element: <AllProducts />,
       },
     ],
   },
