@@ -2,36 +2,32 @@ import { useState } from "react";
 import GoogleLogin from "../components/auth/GoogleLogin";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import { useForm } from "react-hook-form";
+import secuirity from "../assets/security.jpg";
+import Swal from "sweetalert2";
 
 const Register = () => {
-  const [passMatch, setPassMatch] = useState(true);
   const { createUser, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [signupError, setSignupError] = useState("");
 
   const from = location?.state?.from?.pathname || "/";
 
-  const handleSUbmit = (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
-    const confirm_password = form.confirm_password.value;
-
-    if (password !== confirm_password) {
-      setPassMatch(false);
-    }
-
-    console.log(name, email, password, confirm_password);
-
-    if (password === confirm_password) {
-      createUser(email, password).then((data) => {
-        if (data?.user?.email) {
+  const handleRegister = (data) => {
+    setSignupError("");
+    createUser(data.email, data.password)
+      .then((result) => {
+        if (result?.user?.email) {
           const userInfo = {
-            email: data?.user?.email,
-            name: name,
+            email: result?.user?.email,
+            name: data?.name,
           };
           fetch("http://localhost:5000/user", {
             method: "POST",
@@ -45,101 +41,102 @@ const Register = () => {
               localStorage.setItem("token", data?.token);
             });
         }
+        if (user) {
+          navigate(from);
+        }
+        Swal.fire("User created successfully");
+        reset();
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setSignupError(error.message);
       });
-      if (user) {
-        navigate(from);
-      }
-    }
   };
 
   return (
-    <form onSubmit={handleSUbmit} className="hero min-h-screen bg-base-200">
-      <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-        <div className="card-body">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input
-              type="name"
-              placeholder="name"
-              className="input input-bordered"
-              name="name"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="email"
-              className="input input-bordered"
-              name="email"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="password"
-              className="input input-bordered"
-              name="password"
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Confirm Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="confirm password"
-              className="input input-bordered"
-              name="confirm_password"
-              required
-            />
-          </div>
-          {!passMatch && (
-            <div className="my-2">
-              <p className="text-red-500">Passwords do not match!</p>
+    <div className="md:flex">
+      <div className="md:w-1/2 flex justify-end items-center">
+        <img src={secuirity} alt="" className="hidden md:block" />
+      </div>
+      <div className="h-[800px] flex items-center">
+        <div className="w-11/12 mx-auto md:w-96 p-7  bg-base-300 rounded">
+          <h2 className="text-xl text-center text-primary underline">
+            Please Register
+          </h2>
+          <form onSubmit={handleSubmit(handleRegister)}>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                {...register("name", {
+                  required: "Name is required",
+                })}
+                className="input input-bordered w-full"
+              />
+              {errors.name && (
+                <p className="text-error" role="alert">
+                  {errors.name?.message}
+                </p>
+              )}
             </div>
-          )}
-          {/* <div className="form-control">
-            <label className="label">
-              <span className="label-text">Upload profile photo</span>
-            </label>
+            <div className="form-control w-full">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                {...register("email", {
+                  required: "Email Address is required",
+                })}
+                className="input input-bordered w-full"
+              />
+              {errors.email && (
+                <p className="text-error" role="alert">
+                  {errors.email?.message}
+                </p>
+              )}
+            </div>
+            <div className="form-control w-full mb-3">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                {...register("password", {
+                  required: "Password is required",
+                })}
+                className="input input-bordered w-full"
+              />
+              {errors.password && (
+                <p className="text-error" role="alert">
+                  {errors.password?.message}
+                </p>
+              )}
+            </div>
             <input
-              type="file"
-              className="input input-bordered"
-              name="profilePhoto"
-            />
-          </div> */}
-          <div className="form-control mt-6">
-            <input
-              className="btn bg-primary text-white"
-              type="submit"
+              className="btn btn-primary w-full mb-2"
               value="Register"
+              type="submit"
             />
-          </div>
+            <div>
+              {signupError && <p className="text-error">{signupError}</p>}
+            </div>
+          </form>
+          <p>
+            Already have an account?{" "}
+            <Link to="/login" className="text-blue-500">
+              Please login
+            </Link>
+          </p>
+          <div className="divider">OR</div>
           <div className="mt-6">
             <GoogleLogin />
           </div>
-          <div className="mt-6">
-            <p>
-              Already have an account?{" "}
-              <Link to="/login" className="text-red-500">
-                Please Login
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 

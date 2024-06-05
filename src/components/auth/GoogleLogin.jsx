@@ -1,6 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const GoogleLogin = () => {
   const { googleLogin, user } = useAuth();
@@ -32,6 +33,7 @@ const GoogleLogin = () => {
     if (user) {
       navigate(from);
     }
+    Swal.fire("User created successfully");
   };
 
   return (

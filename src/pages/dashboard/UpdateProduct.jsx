@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -12,11 +11,6 @@ const UpdateProducts = () => {
   } = useForm();
 
   const product = useLoaderData();
-
-  // const [title, setTitle] = useState(product.title);
-  // const [price, setPrice] = useState(product.price);
-  // const [brand, setBrand] = useState(product.brand);
-  // const [image, setImage] = useState(product.image);
 
   const handleUpdateProduct = async (data) => {
     // const token = localStorage.getItem("token");
