@@ -1,76 +1,120 @@
+import { useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const EditProfile = () => {
-  const data = useLoaderData();
+  const userInfo = useLoaderData();
 
-  const handleSubmit = (e) => {
-    const token = localStorage.getItem("token");
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const form = e.target;
-    const name = form.name.value;
-    const age = form.age.value;
-    const mobileNumber = form.mobileNumber.value;
+  const handleUpdateProfile = async (data) => {
+    // const token = localStorage.getItem("token");
 
-    const userData = {
-      name,
-      age,
-      mobileNumber,
-      email: data?.email,
-    };
-
-    fetch(`http://localhost:5000/user/${data?.email}`, {
+    await fetch(`http://localhost:5000/user/${userInfo?.email}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${token}`,
+        "Content-type": "application/json",
+        // authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(data),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then(() => {
+        Swal.fire("User updated successfully!");
+        reset();
+      });
   };
+
+  // const handleSubmit = (e) => {
+  //   const token = localStorage.getItem("token");
+  //   e.preventDefault();
+
+  //   const form = e.target;
+  //   const name = form.name.value;
+  //   const age = form.age.value;
+  //   const mobileNumber = form.mobileNumber.value;
+
+  //   const userData = {
+  //     name,
+  //     age,
+  //     mobileNumber,
+  //     email: data?.email,
+  //   };
+
+  //   fetch(`http://localhost:5000/user/${userInfo?.email}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(userData),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data));
+  // };
   return (
     <div>
-      <h1 className="text-3xl mb-7">Edit Profile </h1>
-
-      <form onSubmit={handleSubmit} className="flex flex-col gap-y-5">
-        <div className="flex flex-col">
-          <label htmlFor="">User Name</label>
+      <h1 className="text-2xl font-semibold text-center text-success mt-5 mb-8 underline">
+        Edit Profile
+      </h1>
+      <form
+        onSubmit={handleSubmit(handleUpdateProfile)}
+        className="space-y-2 w-1/2 mx-auto"
+      >
+        <div>
+          <label htmlFor="">Name</label>
           <input
+            {...register("name", { required: true })}
+            className="bg-gray-100 p-2 border border-black rounded-lg w-full"
             type="text"
-            name="name"
-            defaultValue={data?.name}
-            className="py-2 px-1 bg-slate-50 "
+            defaultValue={userInfo.name}
           />
+          {errors.name && (
+            <span className="text-red-400">Name is required</span>
+          )}
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="">User email</label>
+        <div>
+          <label htmlFor="">Email</label>
           <input
+            {...register("email", { required: true })}
+            className="bg-gray-100 p-2 border border-black rounded-lg w-full"
             type="email"
-            value={data?.email}
-            disabled
-            name="email"
-            className="py-2 px-1 bg-slate-50 "
+            value={userInfo.email}
           />
+          {errors.email && (
+            <span className="text-red-400">Email is required</span>
+          )}
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="">User Age</label>
-          <input type="text" name="age" className="py-2 px-1 bg-slate-50 " />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="">User Mobile</label>
+        <div>
+          <label htmlFor="">Age</label>
           <input
+            {...register("age", { required: true })}
+            className="bg-gray-100 p-2 border border-black rounded-lg w-full"
+            type="number"
+          />
+          {errors.age && <span className="text-red-400">Age is required</span>}
+        </div>
+        <div>
+          <label htmlFor="">Mobile number</label>
+          <input
+            {...register("mobile", { required: true })}
+            className="bg-gray-100 p-2 border border-black rounded-lg w-full"
             type="text"
-            name="mobileNumber"
-            className="py-2 px-1 bg-slate-50 "
           />
+          {errors.mobile && (
+            <span className="text-red-400"> Mobile number is required</span>
+          )}
         </div>
-        <div className="flex flex-col">
+        <div className="text-center">
           <input
+            className="btn btn-success text-white"
             type="submit"
-            value="Update Profile"
-            className="py-2 px-1 bg-slate-950 text-white "
+            value="Update profile"
           />
         </div>
       </form>

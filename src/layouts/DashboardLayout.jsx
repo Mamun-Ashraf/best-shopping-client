@@ -23,13 +23,24 @@ const DashboardRoute = () => {
         <ul className="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
           {/* Sidebar content here */}
           <li>
-            <Link to="/dashboard">User Profile</Link>
+            <Link to="/dashboard" className="text-primary">
+              Overview
+            </Link>
           </li>
           <li>
-            <Link to="/dashboard/all-products">All products</Link>
+            <Link to="/dashboard/all-products" className="text-primary">
+              All products
+            </Link>
           </li>
           <li>
-            <Link to="/dashboard/add-product">Add a product</Link>
+            <Link to="/dashboard/add-product" className="text-primary">
+              Add a product
+            </Link>
+          </li>
+          <li>
+            <button className="btn btn-error btn-sm text-white w-1/2">
+              <Link to="/">Home</Link>
+            </button>
           </li>
         </ul>
       </div>

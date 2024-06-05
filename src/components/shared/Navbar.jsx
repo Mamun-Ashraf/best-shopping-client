@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import userProfilePic from "../../assets/placeholder.jpg";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { logout, user } = useAuth();
+  const [userInfo, setUserInfo] = useState();
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/user/${user?.email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserInfo(data);
+      });
+  }, [user]);
 
   const handleLogout = async () => {
     await logout();
@@ -23,14 +32,6 @@ const Navbar = () => {
           <li>
             <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li>
-            <button
-              onClick={handleLogout}
-              className="btn btn-sm bg-red-500 text-white"
-            >
-              Logout
-            </button>
-          </li>
         </>
       ) : (
         <li>
@@ -41,7 +42,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-300">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -67,17 +68,47 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">Best Shopping</a>
+        <a className="btn btn-ghost text-xl text-primary">Best Shopping</a>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{menuItems}</ul>
       </div>
-      <div className="navbar-end space-x-2">
-        <div className="avatar">
-          <div className="w-12 rounded-full border-2 border-black">
-            <img src={user?.photoURL || userProfilePic} />
+      <div className="dropdown dropdown-end">
+        <div
+          tabIndex={0}
+          role="button"
+          className="btn btn-ghost btn-circle avatar"
+        >
+          <div className="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS Navbar component"
+              src={user?.photoURL || userProfilePic}
+            />
           </div>
         </div>
+        <ul
+          tabIndex={0}
+          className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+        >
+          {user?.uid && (
+            <>
+              <li>
+                <Link to="/view-profile">View Profile</Link>
+              </li>
+              <li>
+                <Link to={`/edit-profile/${userInfo?._id}`}>Edit Profile</Link>
+              </li>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="btn btn-sm bg-red-500 text-white"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </div>
   );
