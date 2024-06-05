@@ -1,7 +1,7 @@
 const DashboardHome = () => {
   return (
     <div>
-      <h2>This is dashboard home</h2>
+      <h2 className="text-center text-xl font-semibold">Total Products: </h2>
     </div>
   );
 };
