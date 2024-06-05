@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/products"),
+        loader: () => fetch("https://best-shopping-server.vercel.app/products"),
       },
       {
         path: "about",
@@ -53,7 +53,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/user/get/${params.id}`),
+          fetch(
+            `https://best-shopping-server.vercel.app/user/get/${params.id}`
+          ),
       },
     ],
   },
@@ -78,7 +80,7 @@ export const router = createBrowserRouter([
         path: "update-product/:id",
         element: <UpdateProduct />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/product/${params.id}`),
+          fetch(`https://best-shopping-server.vercel.app/product/${params.id}`),
       },
       {
         path: "all-products",

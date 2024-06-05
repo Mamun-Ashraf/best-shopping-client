@@ -9,7 +9,7 @@ const AllProducts = () => {
   const { register, handleSubmit, reset } = useForm();
 
   useEffect(() => {
-    fetch("http://localhost:5000/products")
+    fetch("https://best-shopping-server.vercel.app/products")
       .then((res) => res.json())
       .then((data) => {
         setProducts(data);

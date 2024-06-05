@@ -6,7 +6,7 @@ const ViewProfile = () => {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/user/${user?.email}`)
+    fetch(`https://best-shopping-server.vercel.app/user/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         setUserInfo(data);

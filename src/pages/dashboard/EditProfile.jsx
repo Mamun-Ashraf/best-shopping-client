@@ -15,14 +15,17 @@ const EditProfile = () => {
   const handleUpdateProfile = async (data) => {
     const token = localStorage.getItem("token");
 
-    await fetch(`http://localhost:5000/user/${userInfo?.email}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      `https://best-shopping-server.vercel.app/user/${userInfo?.email}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         Swal.fire("User updated successfully!");
@@ -46,7 +49,7 @@ const EditProfile = () => {
   //     email: data?.email,
   //   };
 
-  //   fetch(`http://localhost:5000/user/${userInfo?.email}`, {
+  //   fetch(`https://best-shopping-server.vercel.app/user/${userInfo?.email}`, {
   //     method: "PATCH",
   //     headers: {
   //       "Content-Type": "application/json",

@@ -6,7 +6,7 @@ const ProductCard = ({ product, onDelete }) => {
   const { _id, name, brand, price, image } = product;
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:5000/product/${_id}`, {
+    await fetch(`https://best-shopping-server.vercel.app/product/${_id}`, {
       method: "DELETE",
       headers: {
         authorization: `Bearer ${token}`,

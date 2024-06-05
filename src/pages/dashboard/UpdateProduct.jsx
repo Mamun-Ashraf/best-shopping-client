@@ -15,14 +15,17 @@ const UpdateProducts = () => {
   const handleUpdateProduct = async (data) => {
     const token = localStorage.getItem("token");
 
-    await fetch(`http://localhost:5000/product/${product._id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
+    await fetch(
+      `https://best-shopping-server.vercel.app/product/${product._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         Swal.fire("Product updated successfully!");

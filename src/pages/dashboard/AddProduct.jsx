@@ -10,7 +10,7 @@ const AddProducts = () => {
     formState: { errors },
   } = useForm();
   const handleAddProduct = async (data) => {
-    await fetch("http://localhost:5000/product", {
+    await fetch("https://best-shopping-server.vercel.app/product", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
